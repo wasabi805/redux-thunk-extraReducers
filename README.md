@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started with React + TypeScript, eslint, and prettier
 
 This is a simple boiler plate made with create-react-app.
 It includes, TypeScript, eslint, and prettier.
