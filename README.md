@@ -15,10 +15,10 @@ see : https://linuxhint.com/enable-linting-eslint-visual-studio-code/ under the 
 
 In the terminal, simply run:
 
-## Run eslint
+# Run eslint
 
 # `npm run lint`
 
-## Run Pretrier
+# Run Pretrier
 
 # `npm run format`
