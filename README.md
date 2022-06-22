@@ -1,3 +1,7 @@
+# Basic Redux example on a controled form input
+
+This repo contains a sample of the code that's needed in order to get Redux working in a react app.
+
 # Getting Started with React + TypeScript, eslint, prettier, and Material Ui
 
 (Note: this broiler also has a version with MaterialUi)
