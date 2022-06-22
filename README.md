@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-## Getting Started with React + TypeScript, eslint, and prettier
-=======
 # Getting Started with React + TypeScript, eslint, prettier, and Material Ui
->>>>>>> 1a35d8a870d4f185cc6fa5e360e67735d9517195
 
 (Note: this broiler also has a version with MaterialUi)
 
@@ -19,15 +15,6 @@ see : https://linuxhint.com/enable-linting-eslint-visual-studio-code/ under the 
 
 In the terminal, simply run:
 
-<<<<<<< HEAD
-# Run eslint
-
-# `npm run lint`
-
-# Run Pretrier
-
-# `npm run format`
-=======
 # ESLINT
 
 ## `npm run lint`
@@ -44,4 +31,3 @@ see : https://linuxhint.com/enable-linting-eslint-visual-studio-code/ under the 
 
 A theme provider is included and a styled component for the LandingContainer which can be found in src/components/Landing/styled.
 Both of these pieces are in the boiler plate to show which props do what.
->>>>>>> 1a35d8a870d4f185cc6fa5e360e67735d9517195
