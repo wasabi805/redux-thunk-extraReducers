@@ -1,10 +1,14 @@
 import React from 'react'
 import ButtonWrapper from './ButtonWrapper'
 
-function App() {
-  return <div className="App">
+import Landing from './Landing'
 
-  </div>
+function App() {
+  return (
+    <div className="App">
+      <Landing />
+    </div>
+  )
 }
 
 export default App
