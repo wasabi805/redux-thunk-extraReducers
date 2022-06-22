@@ -1,10 +1,13 @@
 import React from 'react'
-import ButtonWrapper from './ButtonWrapper'
+import Landing from 'components/Landing'
+import { Box } from '@mui/material' // pull components from here, not "@material-ui/core"
 
 function App() {
-  return <div className="App">
-
-  </div>
+  return (
+    <Box>
+      <Landing />
+    </Box>
+  )
 }
 
 export default App
