@@ -4,7 +4,12 @@ import { Box } from '@mui/material' // pull components from here, not "@material
 
 function App() {
   return (
-    <Box>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center'
+      }}
+    >
       <Landing />
     </Box>
   )

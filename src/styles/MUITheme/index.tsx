@@ -28,6 +28,14 @@ export interface Itheme {
 /** MUI THEME  */
 /* Sets the default styling attrs and can be accessed in styled components : See the LandingContainer component  */
 const muiTheme: Itheme = createTheme({
+  components: {
+    // MuiButton: {
+    //   styleOverrides: {
+    //     root: { minWidth: '150px', maxWidth: '150px' }
+    //   }
+    // }
+  },
+
   palette: {
     primary: {
       main: grey[500],
