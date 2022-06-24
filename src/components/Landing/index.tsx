@@ -1,23 +1,15 @@
 import React, { FC, ChangeEvent } from 'react'
 import { LandingContainer, ThunkResults, ThunkExamples } from './styled'
-import {
-  Typography,
-  Box,
-  Paper,
-  Input,
-  FormLabel,
-  Button,
-  FormGroup,
-  FormControlLabel,
-  Checkbox
-} from '@mui/material' // pull components from here, not "@material-ui/core"
+import { Typography, Box, Input, FormLabel, Button } from '@mui/material' // pull components from here, not "@material-ui/core"
+import ResultDisplay from '../StyledComponents/ResultDisplay'
 import { useDispatch, useSelector } from 'react-redux'
-import { inputField, getJokes } from 'reducers/LandingSlice'
+import { inputField, getJokes, imageIdInput, getImage } from 'reducers/LandingSlice'
 import { Istate } from 'interfaces'
+import { AppDispatch } from 'store'
 import ThunkCard from '../StyledComponents/ThunkCard'
 
 const Landing: FC = () => {
-  const dispatch = useDispatch()
+  const dispatch: AppDispatch = useDispatch()
   const landingSlice = useSelector((state: Istate) => state.landing)
 
   const handleInputFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -29,9 +21,13 @@ const Landing: FC = () => {
     dispatch(getJokes(dispatch))
   }
 
-  const handleClickCheckbox = (e) => {
+  const handleSetImageIdField = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    console.log(value)
+    dispatch(imageIdInput({ landing: { imageIdInput: value } }))
+  }
+
+  const handleSubmitImageId = (id: number) => {
+    dispatch(getImage({ landing: { imageIdInput: id } }))
   }
 
   return (
@@ -43,51 +39,34 @@ const Landing: FC = () => {
           padding: '3rem'
         }}
       >
-        <Box sx={{
-          marginBottom: '2rem'
-        }}>
+        <Box
+          sx={{
+            marginBottom: '2rem'
+          }}
+        >
           <Typography variant="h2">Welcome to React Playground</Typography>
-          <Typography variant="h5">
-            A basic example of wiring up redux.
-          </Typography>
+          <Typography variant="h5">A basic example of wiring up redux.</Typography>
         </Box>
 
         <Box>
           <ThunkResults>
-            <Box component={'div'} marginBottom={'2rem'}>
-              <Paper>
-                <Typography variant="body1">Displays values for state.landing.inputField</Typography>
-                <p>{landingSlice.inputField}</p>
-              </Paper>
-            </Box>
+            <ResultDisplay
+              displayType={'text'}
+              heading={'Displays values for state.landing.inputField'}
+              data={landingSlice.inputField}
+            />
 
-            <Box component={'div'} marginBottom={'2rem'}>
-              <Paper>
-                <Typography variant="body1">A random joke will appear</Typography>
-                <p>{landingSlice.joke}</p>
-              </Paper>
-            </Box>
+            <ResultDisplay
+              displayType={'text'}
+              heading={'A random joke will appear'}
+              data={landingSlice.joke}
+            />
 
-            <Box component={'div'} marginBottom={'2rem'}>
-              <Paper>
-              <Typography variant="body1">Images appear here</Typography>
-                <Box
-                  sx={{
-                    display: 'flex'
-                  }}
-                >
-                  <Box component={'span'} flex={1}>
-                    1
-                  </Box>
-                  <Box component={'span'} flex={1}>
-                    1
-                  </Box>
-                  <Box component={'span'} flex={1}>
-                    1
-                  </Box>
-                </Box>
-              </Paper>
-            </Box>
+            <ResultDisplay
+              displayType={'image'}
+              heading={'Images appear here'}
+              data={landingSlice.imageSrc}
+            />
           </ThunkResults>
 
           <ThunkExamples>
@@ -113,24 +92,20 @@ const Landing: FC = () => {
             </ThunkCard>
 
             <ThunkCard>
-            <Typography variant="caption">Select images to display</Typography>
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox onClick={handleClickCheckbox} value={'puppy'} />}
-                  label="puppy"
-                />
-                <FormControlLabel
-                  control={<Checkbox onClick={handleClickCheckbox} value={'kitten'} />}
-                  label="kitten"
-                />
-                <FormControlLabel
-                  control={<Checkbox onClick={handleClickCheckbox} value={'random'} />}
-                  label="random"
-                />
-              </FormGroup>
-
-              <Button size={'large'} variant="contained" color={'secondary'}>
-                Show Pets
+              <Typography variant="caption">Select images to display</Typography>
+              <FormLabel>Enter a number from 1 -5000</FormLabel>
+              <Input
+                name="landing.imageIdInput"
+                onChange={handleSetImageIdField}
+                value={landingSlice?.imageIdInput}
+              />
+              <Button
+                size={'large'}
+                variant="contained"
+                color={'secondary'}
+                onClick={() => handleSubmitImageId(landingSlice.imageIdInput)}
+              >
+                Get Image
               </Button>
             </ThunkCard>
           </ThunkExamples>
