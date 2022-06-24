@@ -1,6 +1,7 @@
 import React, { FC, ChangeEvent } from 'react'
 import { LandingContainer, ThunkResults, ThunkExamples } from './styled'
-import { Typography, Box, Input, FormLabel, Button } from '@mui/material' // pull components from here, not "@material-ui/core"
+import { Typography, Box, TextField, Button, InputAdornment, IconButton } from '@mui/material' // pull components from here, not "@material-ui/core"
+import SearchIcon from '@material-ui/icons/Search'
 import ResultDisplay from '../StyledComponents/ResultDisplay'
 import { useDispatch, useSelector } from 'react-redux'
 import { inputField, getJokes, imageIdInput, getImage } from 'reducers/LandingSlice'
@@ -18,7 +19,7 @@ const Landing: FC = () => {
   }
 
   const handleClickGetJoke = () => {
-    dispatch(getJokes(dispatch))
+    dispatch(getJokes())
   }
 
   const handleSetImageIdField = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +46,9 @@ const Landing: FC = () => {
           }}
         >
           <Typography variant="h2">Welcome to React Playground</Typography>
-          <Typography variant="h5">A basic example of wiring up redux.</Typography>
+          <Typography variant="h5" marginBottom={'48px'}>
+            A basic example of wiring up redux.
+          </Typography>
         </Box>
 
         <Box>
@@ -63,6 +66,7 @@ const Landing: FC = () => {
             />
 
             <ResultDisplay
+              textStyle={{ textAlign: 'center' }}
               displayType={'image'}
               heading={'Images appear here'}
               data={landingSlice.imageSrc}
@@ -71,16 +75,21 @@ const Landing: FC = () => {
 
           <ThunkExamples>
             <ThunkCard>
-              <FormLabel>Enter a Value</FormLabel>
-              <Input
-                name="landing.inputField"
-                onChange={handleInputFieldChange}
-                value={landingSlice?.inputField}
-              />
+              <Box sx={{ padding: '0 1em' }}>
+                <Typography variant="caption">Enter a value</Typography>
+                <TextField
+                  label={'Controlled Input'}
+                  name="landing.inputField"
+                  onChange={handleInputFieldChange}
+                  value={landingSlice?.inputField}
+                />
+              </Box>
             </ThunkCard>
 
             <ThunkCard>
-              <Typography variant="caption">Press button below to recieve a joke</Typography>
+              <Typography variant="caption" marginBottom={'1em'}>
+                Press button below to recieve a joke
+              </Typography>
               <Button
                 size={'large'}
                 variant="contained"
@@ -92,21 +101,29 @@ const Landing: FC = () => {
             </ThunkCard>
 
             <ThunkCard>
-              <Typography variant="caption">Select images to display</Typography>
-              <FormLabel>Enter a number from 1 -5000</FormLabel>
-              <Input
-                name="landing.imageIdInput"
-                onChange={handleSetImageIdField}
-                value={landingSlice?.imageIdInput}
-              />
-              <Button
-                size={'large'}
-                variant="contained"
-                color={'secondary'}
-                onClick={() => handleSubmitImageId(landingSlice.imageIdInput)}
-              >
-                Get Image
-              </Button>
+              <Typography variant="caption" marginBottom={'1em'}>
+                Select images to display
+              </Typography>
+
+              <Box sx={{ padding: '0 1em' }}>
+                <TextField
+                  label="Image I.D."
+                  name="landing.imageIdInput"
+                  placeholder={'Range: 1 to 5000'}
+                  onChange={handleSetImageIdField}
+                  value={landingSlice?.imageIdInput}
+                  sx={{ marginBottom: '2rem' }}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment>
+                        <IconButton onClick={() => handleSubmitImageId(landingSlice.imageIdInput)}>
+                          <SearchIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
+                />
+              </Box>
             </ThunkCard>
           </ThunkExamples>
         </Box>

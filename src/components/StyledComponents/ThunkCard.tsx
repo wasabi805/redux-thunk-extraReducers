@@ -1,28 +1,23 @@
 import React from 'react'
-import { Card, CardContent } from '@mui/material' // pull components from here, not "@material-ui/core"
+import { Paper } from '@mui/material' // pull components from here, not "@material-ui/core"
 
-const ThunkCard = ({ children }) => {
+const ThunkCard = ({ elevation, children }) => {
   return (
-    <>
-      <Card
-        sx={{
-          flex: '1'
-        }}
-      >
-        <CardContent
-          sx={{
-            position: 'relative',
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          {children}
-        </CardContent>
-      </Card>
-    </>
+    <Paper
+      elevation={1}
+      sx={{
+        margin: '10px',
+        position: 'relative',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1
+      }}
+    >
+      {children}
+    </Paper>
   )
 }
 

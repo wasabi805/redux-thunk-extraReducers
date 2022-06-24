@@ -20,7 +20,7 @@ const initialState: ILandingState = {
   name: 'landing',
   initialState: {
     status: '',
-    inputField: 'foo-bar',
+    inputField: "I'm already in state",
     joke: '',
     imageIdInput: '',
     imageSrc: ''

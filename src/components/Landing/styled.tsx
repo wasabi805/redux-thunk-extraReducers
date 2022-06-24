@@ -21,14 +21,41 @@ export const ThunkResults = styled(Paper)(({ theme }) => {
     display: 'block',
 
     '& div': {
-      height: '12em'
+      height: '13em',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      overflow: 'scroll',
+      [theme.breakpoints.up('sm')]: {
+        maxWidth: '54em'
+      },
+      [theme.breakpoints.up('md')]: {
+        maxWidth: '54em'
+        // minWidth: '50em'
+      },
+
+      '& p': {
+        textAlign: 'initial',
+
+        [theme.breakpoints.up('xs')]: {
+          margin: '0 2rem'
+        },
+        [theme.breakpoints.up('sm')]: {
+          margin: '0 8rem'
+        }
+      }
     }
   }
 })
 
 export const ThunkExamples = styled(Box)(({ theme }) => {
   return {
-    display: 'flex'
+    display: 'flex',
+    flexDirection: 'column',
+    height: '8rem',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row'
+    }
   }
 })
 
