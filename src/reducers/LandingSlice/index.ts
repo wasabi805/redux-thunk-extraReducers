@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { ILandingState, IinitialLandingState, IAction, IthunkAction } from 'interfaces'
+
 import * as URL from 'urls'
 
 /*  Thunks - any async actions that needs to get called before updating state */
@@ -11,50 +11,57 @@ export const getJokes = createAsyncThunk(
 export const getImage = createAsyncThunk(
   'landing/getImage',
   async (data: { landing: { imageIdInput: number } }) => {
-    const id = data?.landing?.imageIdInput
+    const id = data.landing.imageIdInput
     return await fetch(URL.IMAGE_API_URL + `${id.toString()}`).then((res) => res.json())
   }
 )
 
-const initialState: ILandingState = {
+/* STATE */
+const initialState = {
   name: 'landing',
+  status: '',
   initialState: {
     status: '',
     inputField: "I'm already in state",
     joke: '',
     imageIdInput: '',
     imageSrc: ''
-  },
-  reducers: {
-    inputField: (state: ILandingState, action: IAction): IinitialLandingState => ({
-      ...state,
-      inputField: action.payload?.landing?.inputField
-    }),
-    imageIdInput: (state: ILandingState, action: IAction): IinitialLandingState => ({
-      ...state,
-      imageIdInput: action.payload?.landing?.imageIdInput
-    })
-  },
-
-  /*  Update state in extraReducers after thunk is resolved */
-  extraReducers: {
-    [getJokes.pending.toString()]: (state: IinitialLandingState): void => {
-      state.status = 'loading'
-    },
-    [getJokes.fulfilled.toString()]: (state: IinitialLandingState, action: IthunkAction): void => {
-      state.status = 'success'
-      state.joke = action.payload.value
-    },
-    [getImage.fulfilled.toString()]: (state: IinitialLandingState, action: IthunkAction): void => {
-      state.status = 'success'
-      state.imageSrc = action.payload.thumbnailUrl
-      state.imageIdInput = ''
-    }
   }
 }
 
 /* Slice useSelector will consume */
-export const landingSlice = createSlice(initialState)
+export const landingSlice = createSlice({
+  name: 'landing',
+  initialState,
+  reducers: {
+    inputField: (state, action) => {
+      state.initialState.inputField = action.payload?.landing?.inputField
+      return state
+    },
+    imageIdInput: (state, action) => {
+      state.initialState.imageIdInput = action.payload?.landing?.imageIdInput
+    }
+  },
+  extraReducers: (builder) => {
+    // getImage
+    builder.addCase(getImage.pending, (state) => {
+      state.initialState.status = 'loading'
+    })
+    builder.addCase(getImage.fulfilled, (state, action) => {
+      state.initialState.status = 'success'
+      state.initialState.imageSrc = action.payload.thumbnailUrl
+    })
+
+    // getJokes
+    builder.addCase(getJokes.pending, (state) => {
+      state.initialState.status = 'loading'
+    })
+    builder.addCase(getJokes.fulfilled, (state, action) => {
+      state.initialState.status = 'success'
+      state.initialState.joke = action.payload.value
+    })
+  }
+})
 
 /*  Regular Actions , simple state update */
 export const { inputField, imageIdInput } = landingSlice.actions

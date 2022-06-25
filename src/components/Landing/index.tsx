@@ -3,15 +3,14 @@ import { LandingContainer, ThunkResults, ThunkExamples } from './styled'
 import { Typography, Box, TextField, Button, InputAdornment, IconButton } from '@mui/material' // pull components from here, not "@material-ui/core"
 import SearchIcon from '@material-ui/icons/Search'
 import ResultDisplay from '../StyledComponents/ResultDisplay'
-import { useDispatch, useSelector } from 'react-redux'
 import { inputField, getJokes, imageIdInput, getImage } from 'reducers/LandingSlice'
 import { Istate } from 'interfaces'
-import { AppDispatch } from 'store'
 import ThunkCard from '../StyledComponents/ThunkCard'
+import { useAppSelector, useAppDispatch } from 'hooks/Redux'
 
 const Landing: FC = () => {
-  const dispatch: AppDispatch = useDispatch()
-  const landingSlice = useSelector((state: Istate) => state.landing)
+  const dispatch = useAppDispatch()
+  const landingSlice = useAppSelector((state: Istate) => state.landing)
 
   const handleInputFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
@@ -47,7 +46,7 @@ const Landing: FC = () => {
         >
           <Typography variant="h2">Welcome to React Playground</Typography>
           <Typography variant="h5" marginBottom={'48px'}>
-            A basic example of wiring up redux.
+            Using the builder callback in extraReducers
           </Typography>
         </Box>
 
@@ -56,20 +55,20 @@ const Landing: FC = () => {
             <ResultDisplay
               displayType={'text'}
               heading={'Displays values for state.landing.inputField'}
-              data={landingSlice.inputField}
+              data={landingSlice.initialState.inputField}
             />
 
             <ResultDisplay
               displayType={'text'}
               heading={'A random joke will appear'}
-              data={landingSlice.joke}
+              data={landingSlice.initialState.joke}
             />
 
             <ResultDisplay
               textStyle={{ textAlign: 'center' }}
               displayType={'image'}
               heading={'Images appear here'}
-              data={landingSlice.imageSrc}
+              data={landingSlice.initialState.imageSrc}
             />
           </ThunkResults>
 
@@ -81,7 +80,7 @@ const Landing: FC = () => {
                   label={'Controlled Input'}
                   name="landing.inputField"
                   onChange={handleInputFieldChange}
-                  value={landingSlice?.inputField}
+                  value={landingSlice?.initialState.inputField}
                 />
               </Box>
             </ThunkCard>
@@ -111,12 +110,12 @@ const Landing: FC = () => {
                   name="landing.imageIdInput"
                   placeholder={'Range: 1 to 5000'}
                   onChange={handleSetImageIdField}
-                  value={landingSlice?.imageIdInput}
+                  value={landingSlice?.initialState.imageIdInput}
                   sx={{ marginBottom: '2rem' }}
                   InputProps={{
                     endAdornment: (
-                      <InputAdornment>
-                        <IconButton onClick={() => handleSubmitImageId(landingSlice.imageIdInput)}>
+                      <InputAdornment position='end'>
+                        <IconButton onClick={() => handleSubmitImageId(landingSlice.initialState.imageIdInput)}>
                           <SearchIcon />
                         </IconButton>
                       </InputAdornment>
