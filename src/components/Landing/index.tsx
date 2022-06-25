@@ -114,8 +114,12 @@ const Landing: FC = () => {
                   sx={{ marginBottom: '2rem' }}
                   InputProps={{
                     endAdornment: (
-                      <InputAdornment position='end'>
-                        <IconButton onClick={() => handleSubmitImageId(landingSlice.initialState.imageIdInput)}>
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() =>
+                            handleSubmitImageId(landingSlice.initialState.imageIdInput)
+                          }
+                        >
                           <SearchIcon />
                         </IconButton>
                       </InputAdornment>

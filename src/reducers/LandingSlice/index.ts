@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
 import * as URL from 'urls'
 
 /*  Thunks - any async actions that needs to get called before updating state */
