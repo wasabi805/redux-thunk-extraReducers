@@ -22,7 +22,7 @@ const initialState = {
   initialState: {
     status: '',
     inputField: "I'm already in state",
-    joke: '',
+    joke: 'click the button and get a joke!',
     imageIdInput: '',
     imageSrc: ''
   }
